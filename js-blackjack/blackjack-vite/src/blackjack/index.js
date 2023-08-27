@@ -1,5 +1,7 @@
 import _ from 'underscore'
 import { crearDeck } from './usecases/crear-deck.js';
+import { pedirCarta } from './usecases/pedir-carta.js';
+import { valorCarta } from './usecases/valor-carta.js';
 
 
 /**
@@ -45,29 +47,14 @@ const miModulo = (() => {
 
   deck = crearDeck( tipos, especiales );
 
-  const pedirCarta = () => {
-      if( deck.length === 0 ) {
-          throw 'No hay más cartas en el mazo';
-      }
-
-      // Toma la última carta del mazo y la elimina del deck
-      
-      return deck.pop();
-  }
-
-  // Función que sirve para obtener el valor de la carta.
-  const valorCarta = ( carta ) => {
-      const valor = carta.substring(0, carta.length -1);
-      return ( isNaN( valor ) ) ? ( valor === 'A' ) ? 11 : 10  : valor * 1;
-  }
   // Turno 0 Primer jugador, 1 Computadora
   const acumularPuntos = ( carta, turno ) => {
 
-      puntosJugadores[turno] = puntosJugadores[turno] + valorCarta( carta );
-      puntosHTML[turno].innerText = puntosJugadores[turno];
-      return puntosJugadores[turno];
+    puntosJugadores[turno] = puntosJugadores[turno] + valorCarta( carta );
+    puntosHTML[turno].innerText = puntosJugadores[turno];
+    return puntosJugadores[turno];
 
-  }
+    }
 
   const crearCarta = (carta, turno) => {
       const imgCarta = document.createElement('img');
@@ -96,7 +83,7 @@ const miModulo = (() => {
   const turnoComputadora = ( puntosMinimos ) => {
       let puntosComputadora = 0;
       do {
-          const carta = pedirCarta(); 
+          const carta = pedirCarta(deck); 
           puntosComputadora = acumularPuntos(carta, puntosJugadores.length -1);
           crearCarta(carta, puntosJugadores.length -1);
 
@@ -106,7 +93,7 @@ const miModulo = (() => {
 
   // Eventos
   btnPedir.addEventListener('click', () => {
-      const carta = pedirCarta(); 
+      const carta = pedirCarta(deck); 
       const puntosJugador = acumularPuntos(carta, 0);
 
       crearCarta(carta, 0);
