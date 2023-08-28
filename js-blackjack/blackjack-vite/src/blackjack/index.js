@@ -1,7 +1,6 @@
 import _ from 'underscore'
-import { crearDeck } from './usecases/crear-deck.js';
-import { pedirCarta } from './usecases/pedir-carta.js';
-import { valorCarta } from './usecases/valor-carta.js';
+
+import { crearDeck, pedirCarta , valorCarta, turnoComputadora} from './usecases';
 
 
 /**
@@ -78,17 +77,6 @@ const miModulo = (() => {
               alert('Gana la computadora');
           }
       }, 10);
-  }
-  // Turno de la computadora
-  const turnoComputadora = ( puntosMinimos ) => {
-      let puntosComputadora = 0;
-      do {
-          const carta = pedirCarta(deck); 
-          puntosComputadora = acumularPuntos(carta, puntosJugadores.length -1);
-          crearCarta(carta, puntosJugadores.length -1);
-
-      } while ( (puntosComputadora < puntosMinimos) && puntosMinimos <= 21 );
-      determinarGanador();
   }
 
   // Eventos
