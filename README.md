@@ -11,4 +11,5 @@ En este repositorio se encontrarán con código sucio y desordenado propio de la
 - 🟡 Babel
 - 🟣 Vite
 - 🟠 Webpack
+- and others...
 
